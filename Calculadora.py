@@ -88,8 +88,12 @@ def ingresar_valores_teclado(event):
 
 def raiz_cuadrada():
     entrada2.set('')
-    resultado = math.sqrt(float(entrada1.get()))
-    entrada2.set(resultado)
+    expresion = entrada1.get()
+    try:
+        resultado = math.sqrt(float(expresion))
+        entrada2.set(resultado)
+    except ValueError:
+        entrada2.set("Error")
 
 def borrar(*args):
     inicio = 0
@@ -186,7 +190,7 @@ button_raiz_cuadrada = ttk.Button(mainframe, text="√", style="Botones_restante
 
 
 #Colocaremos los botones en pantalla
-button_parentesis1.grid(column=0, row=2, sticky=(N, E, S, W)) #Leer linea 221 para saber sobre este sticky
+button_parentesis1.grid(column=0, row=2, sticky=(N, E, S, W)) #Leer linea 225 para saber sobre este sticky
 button_parentesis2.grid(column=1, row=2)
 button_borrar_todo.grid(column=2, row=2)
 button_borrar.grid(column=3, row=2)
@@ -219,7 +223,7 @@ button_raiz_cuadrada.grid(column=3, row=7)
 for child in mainframe.winfo_children():
     child.grid_configure(ipady=10, padx=1, pady=1, sticky=(N, E, S, W))
 # Para efectos de estetica, he puesto el sticky en este apartado, dado que se tenia que repertir en cada boton como se
-# muestra en la linea 189, a su vez, se demuestra para que sirve el apartado de [child] y el porque mainframe tiene como padre root
+# muestra en la linea 193, a su vez, se demuestra para que sirve el apartado de [child] y el porque mainframe tiene como padre root
 
 root.bind('<KeyPress-O>', TemaOscuro)
 root.bind('<KeyPress-o>', TemaOscuro)
@@ -227,6 +231,7 @@ root.bind('<KeyPress-C>', TemaClaro)
 root.bind('<KeyPress-c>', TemaClaro)
 root.bind('<Key>', ingresar_valores_teclado)
 root.bind('<KeyPress-BackSpace>', borrar)
+root.bind('<KeyPress-Q>', borrar_todo)
 root.bind('<KeyPress-q>', borrar_todo)
 
 root.mainloop()
